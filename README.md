@@ -2,6 +2,31 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Structure
+
+### Tree View
+```
+.
+├── public/
+│   ├── images/
+├── src/
+│   ├── api/
+│   ├── app/
+│   ├── App.js
+│   ├── components/
+│   ├── pages/
+│   ├── parts/
+
+```
+### Structure info
+- All the images are kept in public so accessible via %PUBLIC_URL%
+- api/ - contains the axios handler
+- app/ - contains the redux store and reducers
+- components/ - common components accross the project
+- pages/ - different pages of the project
+- parts/ - headers and footers
+
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -68,4 +93,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# shoptrade
