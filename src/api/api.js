@@ -1,9 +1,8 @@
 import axios from 'axios';
-// A tiny wrapper around fetch(), borrowed from
-// https://kentcdodds.com/blog/replace-axios-with-a-simple-custom-fetch-wrapper
 
 const API = async (url, method = 'get', data = {}) => {
 
+    // remove the trailing data
     const transformResponse = (rawData) => {
         const lastIndexofTrailingComma = rawData.lastIndexOf(',');
         const dataAfterRemovingComma = rawData.slice(0, lastIndexofTrailingComma) + rawData.slice(lastIndexofTrailingComma + 1)
@@ -11,6 +10,7 @@ const API = async (url, method = 'get', data = {}) => {
         return JSON.parse(dataAfterRemovingComma)
     }
 
+    // create axios configuration
     const config = {
         url,
         method,
@@ -20,12 +20,13 @@ const API = async (url, method = 'get', data = {}) => {
             'Content-Type': 'text/plain'
         }
     }
-    console.log(config)
+    
     const response = await axios(config);
+    // request successfull
     if (response.status === 200) {
-        console.log(response.data)
         return response.data;
     }
+    // request failed raise and return error - thunk handles this
     return new Error(response.statusText);
 }
 

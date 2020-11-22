@@ -6,6 +6,7 @@ import {
 import Tag from '../../../components/tag/tag';
 import DropDown from '../../../components/dropDown/dropDown';
 
+// filters and sorters bar of the shop
 const UtilityBar = () => {
 
     const { tag } = useSelector(state => state.component);
@@ -16,13 +17,16 @@ const UtilityBar = () => {
     return (
         <div>
             
+            {/* The title part */}
             <div className='title'>
                 <h2>{tag}</h2>
                 <div>
+                    {/* count the products with the same tag as the selected one only if 'All Products' is not selected */}
                     {`(${products ? products.filter(product => tag === 'All Products' || product.tag === tag).length : 0} Products)`}
                 </div>
             </div>
 
+            {/* utility bar with filters and sorter */}
             <div className="options mobile-hide-tags-and-sorters">
                 
                 <div className="tags-container">

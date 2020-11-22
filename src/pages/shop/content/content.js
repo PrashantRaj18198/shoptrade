@@ -10,10 +10,11 @@ import { getProducts } from '../../../app/reducers/shopSlice';
 const Content = () => {
     const dispatch = useDispatch();
 
+    // status of the api request and the products
     const { status, products } = useSelector(state => state.shop);
 
     useEffect(() => {
-        console.log('productStatus', status)
+        // if status is idle send the request
         if (status === 'idle') {
             dispatch(getProducts())
         }

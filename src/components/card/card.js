@@ -3,42 +3,51 @@ import {
     useDispatch,
     useSelector
 } from 'react-redux';
-import './card.css';
-import { changeSelection, selectProductSize } from '../../app/reducers/componentSlice';
+import {
+    changeSelection,
+    selectProductSize
+} from '../../app/reducers/componentSlice';
+
 import CircularButton from '../circularButton/circularButton';
 import Button from '../button/button';
+import './card.css';
 
-const getHoverComponent = (selectedProductId, card, currCard, options) => {
+// get the current hover component, could be all the sizes of the product
+// or the add to cart button on the product card
+const getHoverComponent = (selectedProductId, hoveredProductId, currProductId, options) => {
 
-    let hoverBody = null;
     let hoverHeader = null;
-    if (selectedProductId === currCard) {
-        console.log('hover comp changed to button')
+    let hoverBody = null;
+    let className = "";
+
+    // size has been clicked and the product is this
+    // show the add to cart option
+    if (selectedProductId === currProductId) {
         hoverBody = (
             <div className="flex-row space-button">
                 <Button text="Add to cart" />
             </div>)
-        return (
-            <div className="add-to-cart">
-                {hoverHeader}
-                {hoverBody}
-            </div>
-        )
+        className = "add-to-cart";
     }
-    // if mouse is over the current card
+
+    // if mouse is over the current product
     // render the sizes and stuff
-    if (card === currCard) {
+    else if (hoveredProductId === currProductId) {
         // create all the size buttons
         hoverBody = (<div className="flex-row space">
-            {options.map(option => <CircularButton {...option} productId={currCard} key={`${option.id} ${option.name}`} />)}
+            {options.map(option => <CircularButton {...option} productId={currProductId} key={`${option.id} ${option.name}`} />)}
         </div>)
         // create the select size header
         hoverHeader = (<div className="hover-header">
             Select Size:
         </div>)
+
+        className = "hover-component";
     }
+
+    // return the component
     return (
-        <div className="hover-component">
+        <div className={className}>
             {hoverHeader}
             {hoverBody}
         </div>
@@ -51,7 +60,7 @@ const Card = ({ id, compare_at_price, image_src, name, price, tag, vendor, optio
     const dispatch = useDispatch()
 
     const selectedTag = useSelector(state => state.component.tag)
-    const { card, selectedProduct } = useSelector(state => state.component)
+    const { hoveredProductId, selectedProduct } = useSelector(state => state.component)
     // calc discount
     const discount = Math.round(((compare_at_price - price) / compare_at_price) * 100)
 
@@ -63,16 +72,19 @@ const Card = ({ id, compare_at_price, image_src, name, price, tag, vendor, optio
 
 
     return (
+        // change hovered data when mouse enters the card
+        // revert back to null when mouse leaves the card
         <div className="card-container"
-            onMouseEnter={() => dispatch(changeSelection({ type: 'card', value: id }))}
+            onMouseEnter={() => dispatch(changeSelection({ type: 'hoveredProductId', value: id }))}
             onMouseLeave={() => {
-                dispatch(changeSelection({ type: 'card', value: null }))
+                dispatch(changeSelection({ type: 'hoveredProductId', value: null }))
                 dispatch(selectProductSize({}))
             }
             }
         >
             <img
                 className="image-container"
+                // image link is array - load the first one
                 src={
                     image_src.length > 0 ?
                         image_src[0] : null
@@ -81,7 +93,7 @@ const Card = ({ id, compare_at_price, image_src, name, price, tag, vendor, optio
             ></img>
             {getHoverComponent(
                 selectedProduct.productId,
-                card,
+                hoveredProductId,
                 id,
                 options
             )}
