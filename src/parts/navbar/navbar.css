@@ -1,0 +1,38 @@
+.nav-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.space-box {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+@media screen and (max-width: 600px) {
+    .mobile-hide {
+        display: none !important;
+    }
+}
+
+.circle {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    width: 19px;
+    height: 19px;
+
+    border-radius: 50%;
+    background: #E64C09;
+
+    transform: translate(-10px, -5px);
+}

@@ -1,0 +1,31 @@
+.rounded-button {
+    display: flex;
+    width: 115px;
+    height: 42px;
+    color: #878787;
+    border: 1px solid #c4c4c4;
+    box-sizing: border-box;
+    border-radius: 42px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.rounded-button:hover {
+    background-color: #878787;
+    color: white;
+}
+
+.selected {
+    border: 1px solid #000000;
+    color: #000000;
+}
+
+a {
+    text-decoration: none;
+}
+
+.rounded-button button {
+    all: unset;
+}

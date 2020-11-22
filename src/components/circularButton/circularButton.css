@@ -1,0 +1,15 @@
+.circular-button {
+    display: flex;
+    height: 37px;
+    width: 37px;
+    border-radius: 50%;
+    border: 1px solid #C4C4C4;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.circular-button:hover {
+    background-color: var(--light-grey);
+    color: white;
+}
